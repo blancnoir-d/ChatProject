@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="me.saeha.android.chatproject.ui.dashboard.PeoplesFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="me.saeha.android.chatproject.ui.peoples.PeoplesFragment"
+        android:label="@string/title_peoples"
+        tools:layout="@layout/fragment_peoples" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="me.saeha.android.chatproject.ui.notifications.ChatListFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="me.saeha.android.chatproject.ui.message.MessagesFragment"
+        android:label="@string/title_message"
+        tools:layout="@layout/fragment_message" />
 </navigation>
