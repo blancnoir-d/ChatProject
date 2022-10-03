@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ChatProject</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">홈</string>
+    <string name="title_peoples">사람</string>
+    <string name="title_message">메시지</string>
+    <string name="btn_chat">대화하기</string>
 </resources>

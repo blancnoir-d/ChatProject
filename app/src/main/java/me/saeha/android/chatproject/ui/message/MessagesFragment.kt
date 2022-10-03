@@ -1,17 +1,18 @@
-package me.saeha.android.chatproject.ui.dashboard
+package me.saeha.android.chatproject.ui.message
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import me.saeha.android.chatproject.databinding.FragmentDashboardBinding
 
-class PeoplesFragment : Fragment() {
+import me.saeha.android.chatproject.databinding.FragmentMessageBinding
 
-    private var _binding: FragmentDashboardBinding? = null
+
+class MessagesFragment : Fragment() {
+
+    private var _binding: FragmentMessageBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,16 +23,16 @@ class PeoplesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(PeoplesViewModel::class.java)
+        val messageViewModel =
+            ViewModelProvider(this)[MessagesViewModel::class.java]
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentMessageBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textNotifications
+//        notificationsViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
     }
 
