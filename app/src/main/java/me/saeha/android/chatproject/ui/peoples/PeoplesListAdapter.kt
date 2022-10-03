@@ -22,10 +22,7 @@ RecyclerView.Adapter<PeoplesListAdapter.ItemViewHolder>(){
     	//아이템 클릭리스너
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PeoplesProfileActivity::class.java)
-
-         	//값 넘길 때
-//            intent.putExtra("templateId", item.templateId)
-//            intent.putExtra("templateTopic", item.topic)
+            intent.putExtra("peoplesData", item)
           	context?.startActivity(intent)
         }
 
