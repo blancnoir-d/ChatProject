@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -26,7 +31,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/round_back_white_10"
-        android:hint="Name"
+        android:hint="@string/hint_name"
         android:inputType="text"
         android:textSize="16sp"
         android:maxLines="1"
@@ -40,26 +45,13 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/round_back_white_10"
-        android:hint="Position"
+        android:hint="@string/hint_position"
         android:inputType="text"
         android:textSize="16sp"
         android:maxLines="1"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"/>
-    <EditText
-        android:id="@+id/et_register_phone"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/round_back_white_10"
-        android:hint="Phone Number"
-        android:inputType="number"
-        android:textSize="16sp"
-        android:maxLines="1"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"/>
+
     <EditText
         android:id="@+id/et_register_email"
         android:layout_width="match_parent"
@@ -68,7 +60,21 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/round_back_white_10"
-        android:hint="Email"
+        android:hint="@string/hint_email"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"/>
+    <EditText
+        android:id="@+id/et_register_id"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_back_white_10"
+        android:hint="@string/hint_id"
         android:inputType="text"
         android:textSize="16sp"
         android:maxLines="1"
@@ -82,8 +88,8 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/round_back_white_10"
-        android:hint="Password"
-        android:inputType="text"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
         android:textSize="16sp"
         android:maxLines="1"
         android:paddingStart="20dp"
@@ -97,7 +103,8 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/round_back_theme_1000"
-        android:text="등록"
+        android:text="회원 가입"
         android:textColor="@color/white"/>
 
 </LinearLayout>
+</ScrollView>
