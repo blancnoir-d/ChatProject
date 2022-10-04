@@ -33,10 +33,12 @@ class PeoplesViewModel(application: Application) : AndroidViewModel(application)
     private fun getPeoples(){
         databaseReference.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                peoplesList.clear()
                for(i in snapshot.child("users").children){
                    val getKey = i.key.toString() //ID 가져옴
                    Log.d("사람 정보 확인", getKey)
                    val myId = getUserId(getApplication())
+                   Log.d("내 아이디 확인", myId.toString())
                    if(getKey != myId){//나 외의 유저들 정보들
                        val getUserName = i.child("name").getValue(String::class.java).toString()
                        val getUserPosition = i.child("position").getValue(String::class.java).toString()

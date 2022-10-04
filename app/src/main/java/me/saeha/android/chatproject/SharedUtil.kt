@@ -13,9 +13,19 @@ fun saveUserName(context: Context, userName: String){
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     sharedPreferences.edit().putString(USER_NAME, userName).apply()
 }
+fun getUserName(context: Context): String?{
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    return sharedPreferences.getString(USER_NAME, "")
+}
+
 fun saveUserPosition(context: Context, userPosition: String){
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     sharedPreferences.edit().putString(USER_POSITION, userPosition).apply()
+}
+
+fun getUserPosition(context: Context): String?{
+    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    return sharedPreferences.getString(USER_POSITION, "")
 }
 
 fun saveUserEmail(context: Context, userEmail: String){
