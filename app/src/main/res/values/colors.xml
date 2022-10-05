@@ -13,4 +13,5 @@
     <color name="theme_color_2">#FFA8B2FF</color>
     <color name="theme_color">#FF6778FF</color>
     <color name="red">#FF6D6D</color>
+    <color name="light_gray">#EEEEEE</color>
 </resources>

@@ -3,6 +3,7 @@ package me.saeha.android.chatproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -38,12 +39,11 @@ class LoginActivity : AppCompatActivity() {
                             val getName = snapshot.child("users").child(id).child("name").getValue(String::class.java).toString()
                             val getPosition = snapshot.child("users").child(id).child("position").getValue(String::class.java).toString()
                             val getEmail = snapshot.child("users").child(id).child("email").getValue(String::class.java).toString()
-                            val getId = snapshot.child("users").child(id).child("id").getValue(String::class.java).toString()
-
+                            Log.d("Login 이름", getName)
                             saveUserName(this@LoginActivity, getName)
                             saveUserPosition(this@LoginActivity, getPosition)
                             saveUserEmail(this@LoginActivity, getEmail)
-                            saveUserId(this@LoginActivity, getId)
+                            saveUserId(this@LoginActivity, id)
                             //saveUserPass(this@LoginActivity, getPass)
 
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)

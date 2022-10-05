@@ -22,4 +22,16 @@
         android:name="me.saeha.android.chatproject.ui.message.MessagesFragment"
         android:label="@string/title_message"
         tools:layout="@layout/fragment_message" />
+
+    <fragment
+        android:id="@+id/navigation_my_page"
+        android:name="me.saeha.android.chatproject.ui.my.MyPageFragment"
+        android:label="@string/title_my_page"
+        tools:layout="@layout/fragment_my_page" />
+
+    <fragment
+        android:id="@+id/navigation_career"
+        android:name="me.saeha.android.chatproject.ui.career.CareerFragment"
+        android:label="@string/title_career"
+        tools:layout="@layout/fragment_career" />
 </navigation>

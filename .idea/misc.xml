@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.378" />
+        <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable-v24/ic_message_send_gray_24.xml" value="0.2555" />
+        <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/ic_career_black_24.xml" value="0.3315" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/ic_close_gray_24.xml" value="0.378" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.378" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.378" />
+        <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/ic_my_page_black_24.xml" value="0.3315" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.378" />
+        <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/ic_peoples_black_24.xml" value="0.3315" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/ic_user.xml" value="0.378" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/round_back_red_1000.xml" value="0.378" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/drawable/round_back_theme_1000.xml" value="0.2895" />
@@ -18,14 +22,17 @@
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/activity_peoples_profile.xml" value="0.40989583333333335" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/activity_register.xml" value="0.28125" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/dialog_loading_progress.xml" value="0.3734375" />
+        <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/fragment_career.xml" value="0.33697916666666666" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/fragment_dashboard.xml" value="0.28125" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/fragment_home.xml" value="0.5067934782608695" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/fragment_message.xml" value="0.40989583333333335" />
+        <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/fragment_my_page.xml" value="0.1" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/fragment_notifications.xml" value="0.28125" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/fragment_peoples.xml" value="0.31023550724637683" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/item_chat_list.xml" value="0.28125" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/item_chatbubble_left.xml" value="0.3734375" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/item_chatbublle_right.xml" value="0.5" />
+        <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/item_chatting_date.xml" value="0.2866847826086957" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/item_message.xml" value="0.5" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/layout/item_peoples.xml" value="0.28125" />
         <entry key="..\:/Users/admin/AndroidProject/ChatProject/app/src/main/res/menu/bottom_nav_menu.xml" value="0.28125" />

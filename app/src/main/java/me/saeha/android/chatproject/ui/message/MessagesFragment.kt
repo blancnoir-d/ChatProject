@@ -1,23 +1,23 @@
 package me.saeha.android.chatproject.ui.message
 
-import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import me.saeha.android.chatproject.R
 
 import me.saeha.android.chatproject.databinding.FragmentMessageBinding
+import me.saeha.android.chatproject.ui.peoples.PeoplesListAdapter
 
 
 class MessagesFragment : Fragment() {
@@ -26,7 +26,10 @@ class MessagesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var messageViewModel: MessagesViewModel
 
-    private lateinit var progressDialog: AppCompatDialog
+    //Firebase realtimeDB
+    val databaseReference =
+        Firebase.database("https://chatapplication-2b8c6-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,22 +38,47 @@ class MessagesFragment : Fragment() {
     ): View {
         messageViewModel =
             ViewModelProvider(this)[MessagesViewModel::class.java]
-
         _binding = FragmentMessageBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        messageViewModel.getChattingRooms()
 
-
-
-
-
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        databaseReference.child("chatRooms").addChildEventListener(object: ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d("채팅목록키확인",snapshot.key.toString())
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
         binding.rcyMessageList.hasFixedSize()
         binding.rcyMessageList.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        //set RecyclerView
+        messageViewModel.chattingRooms.observe(viewLifecycleOwner, Observer{
+            val adapter = MessagesListAdapter(context, it)
+            val layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+            binding.rcyMessageList.adapter = adapter
+            binding.rcyMessageList.layoutManager  = layoutManager
+        })
 
         //        val textView: TextView = binding.textNotifications
 //        notificationsViewModel.text.observe(viewLifecycleOwner) {
