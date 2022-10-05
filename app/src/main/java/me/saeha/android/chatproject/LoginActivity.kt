@@ -1,6 +1,7 @@
 package me.saeha.android.chatproject
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -78,5 +79,11 @@ class LoginActivity : AppCompatActivity() {
          startActivity(intent)
          finish()
         }
+    }
+
+    override fun onBackPressed() { //앱 종료
+        finishAffinity();
+        System.runFinalization();
+        System.exit(0);
     }
 }
