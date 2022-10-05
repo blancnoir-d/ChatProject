@@ -11,7 +11,7 @@ data class ChattingRoom(
     var lastMessage: String?,
     var unSeenMessage: Int?,
     var partnerImage: String?,
-    var chatLog: List<Message>?,
+    var chatLog: MutableList<Message>?,
     var roomId: String?,
     var lastDate: String?,
     var lastCount: Int?

@@ -103,12 +103,11 @@ class ChattingBubbleAdapter(val context: Context, private val chattingLog: List<
     }
 
     class CenterViewHolder(private val binding: ItemChattingDateBinding) : RecyclerView.ViewHolder(binding.root){
-        private val tvDate = binding.tvChattingDate
+        private val tvChattingDate = binding.tvChattingDate
 
         fun onDateBind(context: Context, chatLog: Message){
-            val dateSplit = chatLog.created?.split("-")
-            //TODO 오늘 날짜랑 같으면 오늘 아니면 날짜로 표시
-            //tvDate.text = context.getString(R.string.date_format, dateSplit[1], dateSplit[2])
+            tvChattingDate.text = chatLog.created?.substring(0,10)
+
         }
     }
 
