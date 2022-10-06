@@ -74,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        //로그인 상태이면 바로 Main으로 이동
         if(checkLoginState(this)){
          val intent = Intent(this,MainActivity::class.java)
          startActivity(intent)

@@ -47,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
                             databaseReference.child("users").child(signUpId).child("name").setValue(signUpName)
                             databaseReference.child("users").child(signUpId).child("position").setValue(signUpPosition)
                             databaseReference.child("users").child(signUpId).child("email").setValue(signUpEmail)
-                            //databaseReference.child("users").child(signUpId).child("pass").setValue(signUpPass)
+                            databaseReference.child("users").child(signUpId).child("pass").setValue(signUpPass)
 
                             saveUserName(this@RegisterActivity, signUpName)
                             saveUserPosition(this@RegisterActivity, signUpPosition)

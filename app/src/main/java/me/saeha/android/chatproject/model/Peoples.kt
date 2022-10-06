@@ -7,5 +7,6 @@ data class Peoples(
     var name: String,
     var position: String,
     var email: String,
-    var profileImage: String
+    var profileImage: String,
+    var sendRoomId: String = ""
 ):Serializable

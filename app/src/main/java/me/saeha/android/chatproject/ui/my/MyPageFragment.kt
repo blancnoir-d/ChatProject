@@ -28,6 +28,7 @@ class MyPageFragment : Fragment() {
         binding.tvMyPageLogout.setOnClickListener {
             logout(requireContext())
             val intent = Intent(context,LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) //이전화면 없애기
             startActivity(intent)
 
 
