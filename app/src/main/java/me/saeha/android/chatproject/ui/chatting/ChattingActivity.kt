@@ -25,7 +25,10 @@ import me.saeha.android.chatproject.getUserPosition
 import me.saeha.android.chatproject.model.ChattingRoom
 import me.saeha.android.chatproject.model.Message
 import me.saeha.android.chatproject.model.Peoples
+import me.saeha.android.chatproject.ui.message.MessagesViewModel
 import me.saeha.android.chatproject.ui.peoples.PeoplesViewModel
+import me.saeha.android.navermovie_project.network.RxBus
+import me.saeha.android.navermovie_project.network.RxEvents
 import java.lang.reflect.Type
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,6 +36,8 @@ import java.util.*
 class ChattingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChattingBinding
     private val chattingViewModel: ChattingViewModel by viewModels()
+    private val messageViewModel: MessagesViewModel by viewModels()
+
     private lateinit var chatRoom: ChattingRoom
     private lateinit var people: Peoples
     private lateinit var adapter: ChattingBubbleAdapter
@@ -53,13 +58,15 @@ class ChattingActivity : AppCompatActivity() {
     var userPosition = ""
 
 
-    //채팅 키보드 화면 가림 방지하기위해 만든 것
+    //채팅 키보드 화면 가림 방지하기위해 추가
     private lateinit var onLayoutChangeListener: View.OnLayoutChangeListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityChattingBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+
 
         userId = getUserId(this).toString()
         userName = getUserName(this).toString()
@@ -72,11 +79,9 @@ class ChattingActivity : AppCompatActivity() {
             partnerName = people.name
             partnerPosition = people.position
             partnerId = people.id
-            roomId = "${userId}_${partnerId}"
-            //profile에서 왔을 때 이미 만들어져 있는 방이 있는지 없는지 확인 필요
-            //있으면 데이터 불러와야하고
-            //없으면 메시지 전송 때 방을 생성
-            chattingViewModel.checkChatRoom(userId, roomId)
+            roomId = people.sendRoomId
+
+            chattingViewModel.getThisChatLog(roomId)
 
         } else if (whereFrom == 2) { //메시지 목록에서 왔을 때
             chatRoom = intent.getSerializableExtra("chatRoomData") as ChattingRoom
@@ -84,7 +89,11 @@ class ChattingActivity : AppCompatActivity() {
             partnerPosition = chatRoom.partnerPosition.toString()
             partnerId = chatRoom.partnerId.toString()
             roomId = chatRoom.roomId.toString()
-            chattingViewModel.checkChatRoom(userId, roomId)
+            chattingViewModel.getThisChatLog(roomId)
+
+
+//            chattingViewModel.updateUnseenMessage(roomId)
+
         }
 
         databaseReference.child("chatRooms").child(roomId)
@@ -109,6 +118,7 @@ class ChattingActivity : AppCompatActivity() {
                         }
                         Log.d("사이즈 확인", chattingViewModel.chattingLogsList.size.toString() )
                         chattingViewModel.updateChattingLogs()
+
                     }
 
                 }
@@ -186,7 +196,6 @@ class ChattingActivity : AppCompatActivity() {
                 val thisChatDate = dateFormat.format(longToDate)
                 Log.d("날짜 확인", thisChatDate.toString()) //확인: 2022-10-04 오후 09:10:51
 
-
                 val messageRow = Message(message, thisChatDate, userId, userName, roomId)
                 chattingViewModel.saveMessage(
                     userId,
@@ -210,10 +219,19 @@ class ChattingActivity : AppCompatActivity() {
     //Toolbar 메뉴 클릭 이벤트
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> { //뒤로 가기 버튼
+            android.R.id.home -> {
+                //채팅방을 나갔을 때 보지 않은 메시지 숫자 초기화 하기위한
+                RxBus.publish(RxEvents.EventOutChattingRoom(roomId,chattingViewModel.chattingLogsList ))
                 finish()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        //채팅방을 나갔을 때 보지 않은 메시지 숫자 초기화 하기위한
+        RxBus.publish(RxEvents.EventOutChattingRoom(roomId,chattingViewModel.chattingLogsList))
+        finish()
     }
 }

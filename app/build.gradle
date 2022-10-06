@@ -77,4 +77,9 @@ dependencies {
     //viewmodel
     implementation 'androidx.fragment:fragment-ktx:1.5.2'
     implementation 'androidx.activity:activity-ktx:1.5.1'
+
+    //RxAndroid와 RxJava , RxKotlin 추가
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.7'
+
 }
