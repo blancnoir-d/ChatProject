@@ -50,10 +50,15 @@ RecyclerView.Adapter<MessagesListAdapter.ItemViewHolder>(){
 
         fun onBind(context: Context?, item: ChattingRoom){
             if (context != null) {
+//                Glide.with(context)
+//                    .load(item.partnerImage)
+//                    .override(50,50)
+//                    .centerCrop()
+//                    .into(ivMessageProfileImage)
+
                 Glide.with(context)
-                    .load(item.partnerImage)
-                    .override(190,250)
-                    .centerCrop()
+                    .load(R.drawable.ic_user)
+                    .override(110, 110)
                     .into(ivMessageProfileImage)
             }
 
@@ -61,6 +66,7 @@ RecyclerView.Adapter<MessagesListAdapter.ItemViewHolder>(){
             tvMessageName.text = item.partnerName
             tvMessagePosition.text = item.partnerPosition
             tvMessageLastMessage.text = item.lastMessage
+            tvMessageLastDay.text = item.lastDate?.substring(0,10)
 
             if(item.unSeenMessage == 0){
                 tvMessageUnseenMessage.visibility = View.GONE

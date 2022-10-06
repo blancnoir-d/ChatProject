@@ -58,6 +58,7 @@ class MessagesFragment : Fragment() {
             messageViewModel.thisChattingRoom!!.lastCount =it.chattingLog.size
             messageViewModel.thisChattingRoom!!.chatLog = it.chattingLog
             messageViewModel.thisChattingRoom!!.lastMessage = it.chattingLog[it.chattingLog.size-1].content
+            messageViewModel.thisChattingRoom!!.lastDate = it.chattingLog[it.chattingLog.size-1].created
             messageViewModel.updateChatRoom(messageViewModel.thisChattingRoom!!) //로컬DB 정보 업데이트
 
             for(index in 0 until messageViewModel.chattingRoomList.size){//채팅목록에 쓰이는 리스트 안에 해당 채팅룸을 찾아서 수정
