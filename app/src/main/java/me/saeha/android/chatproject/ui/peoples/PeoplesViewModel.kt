@@ -52,7 +52,6 @@ class PeoplesViewModel(application: Application) : AndroidViewModel(application)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
         })
     }

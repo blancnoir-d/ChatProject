@@ -83,36 +83,36 @@ class MessagesFragment : Fragment() {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val getRoomId = snapshot.key.toString() //추가 또는 변화된 채팅방
                 var unseenMessageCount = 0
-                Log.d("채팅목록키확인",snapshot.key.toString())
+                //Log.d("채팅목록키확인",snapshot.key.toString())
                 if(userId?.let { getRoomId.contains(it) } == true){ //채팅방 고유 아이디에 userId 포함되어 있는지 확인
 
                     //해당 roomId로 로컬DB 조회
                     messageViewModel.selectThisRoom(getRoomId)
                    if(messageViewModel.thisChattingRoom!=null){ //로컬 DB에 저장되어 있으면
-                       Log.d("채팅목록값확인아아로컬DB에저장되어있으면","dkdkdkd")
+                       //Log.d("채팅목록값확인아아로컬DB에저장되어있으면","dkdkdkd")
                        val getUser1Id = snapshot.child("user1_id").getValue(String::class.java).toString()
                        val getUser2Id = snapshot.child("user2_id").getValue(String::class.java).toString()
-                       Log.d("채팅목록값user1이",getUser1Id) //null
-                       Log.d("채팅목록값user2이 ",getUser2Id) //null
+                       //Log.d("채팅목록값user1이",getUser1Id) //null
+                       //Log.d("채팅목록값user2이 ",getUser2Id) //null
                        var partnerId = ""
                        var partnerName = ""
                        var partnerPosition = ""
 
                        //상대 정보 가져오기
                        if(getUser1Id == userId){
-                           Log.i("채팅목록값user1이 나일 떄","")
+                           //Log.i("채팅목록값user1이 나일 떄","")
                            partnerId = snapshot.child("user2_id").getValue(String::class.java).toString()
                            partnerName =snapshot.child("user2_name").getValue(String::class.java).toString()
                            partnerPosition =snapshot.child("user2_position").getValue(String::class.java).toString()
                        }else if(getUser2Id == userId){
-                           Log.i("채팅목록값user2가 나일 떄","")
+                           //Log.i("채팅목록값user2가 나일 떄","")
                            partnerId = snapshot.child("user1_id").getValue(String::class.java).toString()
                            partnerName =snapshot.child("user1_name").getValue(String::class.java).toString()
                            partnerPosition =snapshot.child("user1_position").getValue(String::class.java).toString()
                        }
 
                        val getChattingLogJson = snapshot.child("thread").getValue(String::class.java) //채팅 기록
-                       Log.d("채팅목록값확인", getChattingLogJson.toString())
+                       //Log.d("채팅목록값확인", getChattingLogJson.toString())
                        val gson = Gson()
                        val messageListType: Type = object: TypeToken<ArrayList<Message?>?>(){}.type
                        val getChattingLog: ArrayList<Message> = gson.fromJson(getChattingLogJson, messageListType)
@@ -155,26 +155,26 @@ class MessagesFragment : Fragment() {
                        messageViewModel.thisChattingRoom = null
 
                    }else{ //로컬 DB에 저장되어있지 않으면
-                       Log.d("채팅목록값확인아아로컬DB에저장되어있지않으면","dkdkdkd")
+                       //Log.d("채팅목록값확인아아로컬DB에저장되어있지않으면","dkdkdkd")
 
                        val getChattingLogJson = snapshot.child("thread").getValue(String::class.java)
 
                        val getUser1Id = snapshot.child("user1_id").getValue(String::class.java).toString()
                        val getUser2Id = snapshot.child("user2_id").getValue(String::class.java).toString()
-                       Log.d("채팅목록값user1이",getUser1Id) //null
-                       Log.d("채팅목록값user2이 ",getUser2Id) //null
+                       //Log.d("채팅목록값user1이",getUser1Id) //null
+                       //Log.d("채팅목록값user2이 ",getUser2Id) //null
                        var partnerId = ""
                        var partnerName = ""
                        var partnerPosition = ""
 
                        //상대 정보 가져오기
                        if(getUser1Id == userId){
-                           Log.i("채팅목록값user1이 나일 떄","")
+                           //Log.i("채팅목록값user1이 나일 떄","")
                            partnerId = snapshot.child("user2_id").getValue(String::class.java).toString()
                            partnerName =snapshot.child("user2_name").getValue(String::class.java).toString()
                            partnerPosition =snapshot.child("user2_position").getValue(String::class.java).toString()
                        }else if(getUser2Id == userId){
-                           Log.i("채팅목록값user2가 나일 떄","")
+                           //Log.i("채팅목록값user2가 나일 떄","")
                            partnerId = snapshot.child("user1_id").getValue(String::class.java).toString()
                            partnerName =snapshot.child("user1_name").getValue(String::class.java).toString()
                            partnerPosition =snapshot.child("user1_position").getValue(String::class.java).toString()
@@ -182,7 +182,7 @@ class MessagesFragment : Fragment() {
 
 
 
-                       Log.d("채팅목록값확인", getChattingLogJson.toString())
+                       //Log.d("채팅목록값확인", getChattingLogJson.toString())
                        val gson = Gson()
                        val messageListType: Type = object: TypeToken<ArrayList<Message?>?>(){}.type
                        val getChattingLog: ArrayList<Message> = gson.fromJson(getChattingLogJson, messageListType)
@@ -193,11 +193,11 @@ class MessagesFragment : Fragment() {
                            lastDateTime = getChattingLog[getChattingLog.size - 1].created.toString()
                        }
                        var lastCount = snapshot.child("lastCount").getValue(Int::class.java)?.toInt()
-                       Log.d("채팅목록값userid", userId)
-                       Log.d("채팅목록값partnerId", partnerId)
-                       Log.d("채팅목록값partnerName", partnerName)
-                       Log.d("채팅목록값partnerPosition", partnerPosition)
-                       Log.d("채팅목록값lastCount", lastCount.toString())//2
+                       //Log.d("채팅목록값userid", userId)
+                       //Log.d("채팅목록값partnerId", partnerId)
+                       //Log.d("채팅목록값partnerName", partnerName)
+                       //Log.d("채팅목록값partnerPosition", partnerPosition)
+                       //Log.d("채팅목록값lastCount", lastCount.toString())//2
 
                        //unseenmessage set
                        for(index in 0 until getChattingLog.size){
@@ -254,38 +254,7 @@ class MessagesFragment : Fragment() {
             binding.rcyMessageList.layoutManager  = layoutManager
         })
 
-//        //DB에서
-//        messageViewModel.chatRoomsLiveData.observe(viewLifecycleOwner, Observer {
-//            val adapter = MessagesListAdapter(context, it)
-//            val layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-//            binding.rcyMessageList.adapter = adapter
-//            binding.rcyMessageList.layoutManager  = layoutManager
-//        })
     }
-
-
-//    fun progressON(){
-//        progressDialog = AppCompatDialog(this)
-//        progressDialog.setCancelable(false)
-//        progressDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//        progressDialog.setContentView(R.layout.loading_dialog_custom) //다이얼로그 xml 생성하기
-//        progressDialog.show()
-//        var img_loading_framge = progressDialog.findViewById<ImageView>(R.id.GIFimage)
-//        var frameAnimation = img_loading_framge?.getBackground() as AnimationDrawable
-//        img_loading_framge?.post(object : Runnable{
-//            override fun run() {
-//                frameAnimation.start()
-//            }
-//
-//        })
-//    }
-//    fun progressOFF(){
-//        if(progressDialog != null && progressDialog.isShowing()){
-//            progressDialog.dismiss()
-//        }
-//    }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
