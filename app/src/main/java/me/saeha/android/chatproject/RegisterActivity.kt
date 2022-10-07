@@ -22,8 +22,6 @@ class RegisterActivity : AppCompatActivity() {
     //DB
     val databaseReference = Firebase.database("https://chatapplication-2b8c6-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
-    private lateinit var progressDialog: AppCompatDialog
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -64,27 +62,11 @@ class RegisterActivity : AppCompatActivity() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+
                     }
                 })
             }
 
-        }
-    }
-
-    fun progressON(){
-        progressDialog = AppCompatDialog(this)
-        progressDialog.setCancelable(false)
-        progressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        progressDialog.setContentView(R.layout.dialog_loading_progress) //다이얼로그 xml 생성하기
-        progressDialog.show()
-        val img_loading_framge = progressDialog.findViewById<ImageView>(R.id.iv_test)
-        val frameAnimation = img_loading_framge?.background as AnimationDrawable
-        img_loading_framge.post(Runnable { frameAnimation.start() })
-    }
-    fun progressOFF(){
-        if(progressDialog.isShowing){
-            progressDialog.dismiss()
         }
     }
 

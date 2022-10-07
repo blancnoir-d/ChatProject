@@ -34,11 +34,9 @@ class MessagesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var messageViewModel: MessagesViewModel
 
-
     //Firebase realtimeDB
     val databaseReference =
         Firebase.database("https://chatapplication-2b8c6-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

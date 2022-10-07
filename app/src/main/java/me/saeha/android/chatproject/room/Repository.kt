@@ -7,13 +7,8 @@ import me.saeha.android.chatproject.model.Message
 
 class Repository(private val appDAO: AppDAO) {
 
-    //Observed Flow는 데이터가 변경되면 관찰자에게 알립니다.
-    val allChatRooms: Flow<List<ChattingRoom>> = appDAO.getAllChatRoom()
-    //데이터 다 가져오는 거 위랑 같은걸 메소드로 만든 것
-//    fun getAllChatRoom(): Flow<List<ChatRoom>> {
-//        return chatRoomDAO.getAllChatRoom()
-//    }
 
+    val allChatRooms: Flow<List<ChattingRoom>> = appDAO.getAllChatRoom()
 
 
     //DAO의 fun이 suspend면 여기도 같이 suspend fun이어야 함.
@@ -37,9 +32,7 @@ class Repository(private val appDAO: AppDAO) {
         return appDAO.selectThisRoomInfo(roomId)
     }
 
-    fun selectThisRoomMessage(id: Int): Flow<List<Message>> {
-        return appDAO.selectThisRoomMessage(id)
-    }
+
 
 
 }

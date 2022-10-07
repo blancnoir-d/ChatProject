@@ -16,8 +16,6 @@ class PeoplesFragment : Fragment() {
     private var _binding: FragmentPeoplesBinding? = null
     private lateinit var peoplesViewModel: PeoplesViewModel
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(

@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
                             val getName = snapshot.child("users").child(id).child("name").getValue(String::class.java).toString()
                             val getPosition = snapshot.child("users").child(id).child("position").getValue(String::class.java).toString()
                             val getEmail = snapshot.child("users").child(id).child("email").getValue(String::class.java).toString()
-                            Log.d("Login 이름", getName)
+                            //Log.d("Login 이름", getName)
                             saveUserName(this@LoginActivity, getName)
                             saveUserPosition(this@LoginActivity, getPosition)
                             saveUserEmail(this@LoginActivity, getEmail)

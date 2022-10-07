@@ -72,7 +72,7 @@ class MessagesViewModel(application: Application) : AndroidViewModel(application
 
                 for(i in snapshot.child("chatRooms").children){ //채팅룸을 다 가져와서
                     val getRoomId = i.key.toString()
-                    Log.d("채팅방 룸",getRoomId)
+                    //Log.d("채팅방 룸",getRoomId)
                     if(getRoomId.contains(userId)){ // 해당유저의 채팅방이면
                         val getUser1Id = i.child("user1_id").getValue(String::class.java).toString()
                         val getUser2Id = i.child("user2_id").getValue(String::class.java).toString()
@@ -106,7 +106,7 @@ class MessagesViewModel(application: Application) : AndroidViewModel(application
                             lastDateTime = getChattingLog[getChattingLog.size - 1].created.toString()
                         }
                         val lastCount = i.child("lastCount").getValue(Int::class.java)?.toInt()
-                        Log.d("MessagesViewModel채팅기록last", lastCount.toString())
+                        //Log.d("MessagesViewModel채팅기록last", lastCount.toString())
 
                         //TODO Room에 해당 채팅룸이 있는지 확인, 있으면룸에 저장되어있는 최근 메시지 갯수랑 비교 후에 unseenMessage 업데이트, 없으면 insert
                         selectThisRoom(getRoomId)
@@ -139,15 +139,16 @@ class MessagesViewModel(application: Application) : AndroidViewModel(application
 
 
                         }else{ //채팅룸이 저장되어 있다면
-                            Log.d("lastCount",thisChattingRoom!!.lastCount!!.toString())
+                            //Log.d("lastCount",thisChattingRoom!!.lastCount!!.toString())
                             if( thisChattingRoom!!.lastCount!! < lastCount!!){ //마지막 개수 비교해서
                                 unseenMessageCount = lastCount - thisChattingRoom!!.lastCount!!
                                 thisChattingRoom!!.unSeenMessage = unseenMessageCount//안본 메시지 개수 반영
-
+                                thisChattingRoom!!.chatLog = getChattingLog
                                 updateChatRoom(thisChattingRoom!!)
 
                             }else{
                                 thisChattingRoom!!.unSeenMessage = unseenMessageCount
+                                thisChattingRoom!!.chatLog = getChattingLog
                                 updateChatRoom(thisChattingRoom!!)
                             }
                             chattingRoomList.add(thisChattingRoom!!)
@@ -175,12 +176,13 @@ class MessagesViewModel(application: Application) : AndroidViewModel(application
         repository.updateChatRoom(chatRoom)
     }
 
-//
-//    fun selectThisChatRoom(roomId: String) = viewModelScope.launch {
-//        chattingRoomInfo = repository.selectThisRoom(roomId)
-//    }
     //특정 채팅룸이 있는지
     fun selectThisRoom(roomId: String) = viewModelScope.launch {
             thisChattingRoom = repository.selectThisRoomInfo(roomId)
         }
+
+    //
+//    fun selectThisChatRoom(roomId: String) = viewModelScope.launch {
+//        chattingRoomInfo = repository.selectThisRoom(roomId)
+//    }
 }

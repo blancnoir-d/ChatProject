@@ -29,38 +29,35 @@ class ChattingViewModel(application: Application) : AndroidViewModel(application
 
     val databaseReference =
         Firebase.database("https://chatapplication-2b8c6-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+
+    //채팅 기록
     var _chattingLogs = MutableLiveData<List<Message>>()
     val chattingLogs: LiveData<List<Message>>
         get() = _chattingLogs
-
     var chattingLogsList = mutableListOf<Message>()
 
-    //Room
+    //Room DB
     private var repository: Repository
 
     //채팅방 정보
-    lateinit var thisChattingRoom: LiveData<ChattingRoom>
     var chatRoomInfo: ChattingRoom? = null
     var getLastDate = ""
     var getLastMessage = ""
+    //lateinit var thisChattingRoom: LiveData<ChattingRoom>
 
 
     init {
         _chattingLogs.value = chattingLogsList
-
-        val coroutineScope = CoroutineScope(SupervisorJob()) // userData call으로 인해서 추가함
+        val coroutineScope = CoroutineScope(SupervisorJob())
         val appDao = AppDataBase.getInstance(application, coroutineScope)?.appDao()
         repository = appDao?.let { Repository(it) }!!
-
     }
 
     fun updateChattingLogs() {
         _chattingLogs.value = chattingLogsList
     }
 
-    /**
-     * 채팅방을 들어오면 안 본 메세지 숫자 초기화
-     */
+
     fun updateUnseenMessage(roomId: String) {
         selectThisRoomInfo(roomId)  //RoomDB 조회
         Log.d("개수확인", chatRoomInfo?.unSeenMessage.toString())
@@ -69,6 +66,11 @@ class ChattingViewModel(application: Application) : AndroidViewModel(application
         chatRoomInfo?.let { updateChatRoom(it) }
     }
 
+    /**
+     * 메세지 저장 및 보내기
+     * @param message: 보낼 메세지 정보를 담은 객체
+     *
+     */
 
     fun saveMessage(
         userId: String,
@@ -98,15 +100,14 @@ class ChattingViewModel(application: Application) : AndroidViewModel(application
 
                     //날짜가 다르면 center Item 추가
                     val thisLastDate = chatRoomInfo?.lastDate?.substring(0, 11) //로컬에 저장되어 있는 날짜
-                    val thisMessageCreated = message.created?.substring(0, 11) //방금 전송하려고 하는 메시의 날짜
-                    Log.d("마지막 날짜", thisLastDate.toString())
-                    Log.d("메시지 날짜", thisMessageCreated.toString())
+                    val thisMessageCreated = message.created?.substring(0, 11) //방금 전송하려고 하는 메시지의 날짜
+                    //Log.d("${javaClass}로컬 마지막 날짜", thisLastDate.toString())
+                    //Log.d("${javaClass}보낼 메시지 날짜", thisMessageCreated.toString())
 
                     if (thisLastDate != thisMessageCreated) {//날짜가 다르면 center item 추가
                         val centerItem = Message(senderId = "C", created = message.created)
                         chattingLogsList.add(centerItem)
                     }
-
 
                     chattingLogsList.add(message)
                     val json = gson.toJson(chattingLogsList)
@@ -118,7 +119,7 @@ class ChattingViewModel(application: Application) : AndroidViewModel(application
                     )
                     databaseReference.updateChildren(map)
 
-                    //Room에서 가져온 채팅방 정보 update
+                    //로컬에서 가져온 채팅방 정보 update
                     chatRoomInfo?.lastCount = chattingLogsList.size
                     chatRoomInfo?.unSeenMessage = 0
                     getLastDate = chattingLogsList[chattingLogsList.size - 1].created.toString()
@@ -133,16 +134,15 @@ class ChattingViewModel(application: Application) : AndroidViewModel(application
                     val centerItem = Message(senderId = "C", created = message.created)
                     chattingLogsList.add(centerItem)
 
-                    //Json으로 넣어줘야
+                    //mutablelist -> json으로 변환
                     val gson = Gson()
                     chattingLogsList.add(message)
                     val json = gson.toJson(chattingLogsList)
+
                     databaseReference.child("chatRooms").child(roomId).child("thread")
                         .setValue(json)
-                    //마지막 길이
                     databaseReference.child("chatRooms").child(roomId).child("lastCount")
                         .setValue(chattingLogsList.size)
-
                     databaseReference.child("chatRooms").child(roomId).child("user1_id")
                         .setValue(userId)
                     databaseReference.child("chatRooms").child(roomId).child("user1_name")
@@ -173,38 +173,27 @@ class ChattingViewModel(application: Application) : AndroidViewModel(application
                         getLastCount
                     )
                     insertChatRoom(newChatRoom)
-
-//                    //Json으로 넣어줘야
-//                    val gson = Gson()
-//                    chattingLogsList.add(message)
-//                    val json = gson.toJson(chattingLogsList)
-//                    databaseReference.child("chatRooms").child(roomId).child("thread")
-//                        .setValue(json)
-//                    //마지막 길이
-//                    databaseReference.child("chatRooms").child(roomId).child("lastCount")
-//                        .setValue(chattingLogsList.size)
-
                 }
 
                 _chattingLogs.value = chattingLogsList
 
-
-
-
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
 
     }
 
-
+    /**
+     * 해당 방 채팅내용 가져오기 위한 메소드
+     * @param roomId: 채팅방 고유 아이디
+     */
     fun getThisChatLog(roomId: String) {
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.child("chatRooms").hasChild(roomId)) {// 생성된 채팅방이 있으면
+                if (snapshot.child("chatRooms").hasChild(roomId)) {// realtimeDB에 생성된 채팅방이 있으면
                     //채팅 로그 가져오기
                     val getChattingLogJson =
                         snapshot.child("chatRooms").child(roomId).child("thread")
@@ -214,22 +203,19 @@ class ChattingViewModel(application: Application) : AndroidViewModel(application
                     val userListType: Type = object : TypeToken<ArrayList<Message?>?>() {}.type
                     val getChattingLog: ArrayList<Message> =
                         gson.fromJson(getChattingLogJson, userListType)
-                    chattingLogsList = getChattingLog
 
+                    chattingLogsList = getChattingLog
                     _chattingLogs.value = chattingLogsList
 
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
 
     }
-
-
-
 
 
 
@@ -244,14 +230,13 @@ class ChattingViewModel(application: Application) : AndroidViewModel(application
         repository.updateChatRoom(chatRoom)
     }
 
-    //특정 채팅룸이 있는지
-    fun selectThisChatRoom(roomId: String) = viewModelScope.launch {
-        thisChattingRoom = repository.selectThisRoom(roomId)
-    }
-
     //특정 채팅룸이 있는지 ChattingRoom 객체
     fun selectThisRoomInfo(roomId: String) = viewModelScope.launch {
         chatRoomInfo = repository.selectThisRoomInfo(roomId)
     }
 
+    //특정 채팅룸이 있는지
+//    fun selectThisChatRoom(roomId: String) = viewModelScope.launch {
+//        thisChattingRoom = repository.selectThisRoom(roomId)
+//    }
 }

@@ -31,7 +31,6 @@ class PeoplesProfileActivity : AppCompatActivity() {
         val userId = getUserId(this)
         people = intent.getSerializableExtra("peoplesData") as Peoples
 
-        //여기서 roomID를 쥐어서 보내주지 않으면 어떻게 할 방법을 찾을 수가 없었다ㅜ
         databaseReference.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.child("chatRooms").hasChild("${userId}_${people.id}")){

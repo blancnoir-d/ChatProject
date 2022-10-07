@@ -21,7 +21,7 @@ class ChattingBubbleAdapter(val context: Context, private val chattingLog: List<
     val userId = getUserId(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        //RecyclerView ViewBinding 사용
+
         val rightBinding =
             ItemChatbublleRightBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val leftBinding =
@@ -102,9 +102,9 @@ class ChattingBubbleAdapter(val context: Context, private val chattingLog: List<
         }
     }
 
+    //Center
     class CenterViewHolder(private val binding: ItemChattingDateBinding) : RecyclerView.ViewHolder(binding.root){
         private val tvChattingDate = binding.tvChattingDate
-
         fun onDateBind(context: Context, chatLog: Message){
             tvChattingDate.text = chatLog.created?.substring(0,10)
 

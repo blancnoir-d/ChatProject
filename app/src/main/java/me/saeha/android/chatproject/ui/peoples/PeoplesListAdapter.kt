@@ -19,7 +19,6 @@ RecyclerView.Adapter<PeoplesListAdapter.ItemViewHolder>(){
         val item = peoplesList[position]
         holder.onBind(context, item)
 
-    	//아이템 클릭리스너
         holder.itemView.setOnClickListener {
             val intent = Intent(context, PeoplesProfileActivity::class.java)
             intent.putExtra("peoplesData", item)
@@ -30,7 +29,6 @@ RecyclerView.Adapter<PeoplesListAdapter.ItemViewHolder>(){
 
     override fun getItemCount(): Int = peoplesList.size
 
-    //아이템 뷰홀더
     class ItemViewHolder(binding: ItemPeoplesBinding): RecyclerView.ViewHolder(binding.root){
         val tvPeoplesName = binding.tvPeoplesName
         val tvPeoplesPosition = binding.tvPeoplesPosition

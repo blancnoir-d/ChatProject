@@ -18,7 +18,6 @@ class MessagesListAdapter (val context: Context?, private var chattingRoomList:L
 RecyclerView.Adapter<MessagesListAdapter.ItemViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        //viewbinding - item 레이아웃과
         val templateDetailBinding = ItemMessageBinding.inflate(LayoutInflater.from(parent.context), parent,false)
         return ItemViewHolder(templateDetailBinding)
     }
@@ -27,7 +26,6 @@ RecyclerView.Adapter<MessagesListAdapter.ItemViewHolder>(){
         val item = chattingRoomList[position]
         holder.onBind(context, item)
 
-    	//아이템 클릭리스너
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ChattingActivity::class.java)
             intent.putExtra("whereFrom", 2)

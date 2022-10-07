@@ -6,14 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import me.saeha.android.chatproject.R
+import me.saeha.android.chatproject.databinding.FragmentCareerBinding
+import me.saeha.android.chatproject.databinding.FragmentMyPageBinding
 
 class CareerFragment : Fragment() {
+    private lateinit var binding: FragmentCareerBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_career, container, false)
+    ): View {
+        binding = FragmentCareerBinding.inflate(inflater, container,false)
+
+
+        return binding.root
     }
 
 

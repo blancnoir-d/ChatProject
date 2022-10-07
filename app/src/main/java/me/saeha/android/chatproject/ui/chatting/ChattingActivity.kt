@@ -1,14 +1,11 @@
 package me.saeha.android.chatproject.ui.chatting
 
-import java.time.LocalDate
-
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -25,8 +22,6 @@ import me.saeha.android.chatproject.getUserPosition
 import me.saeha.android.chatproject.model.ChattingRoom
 import me.saeha.android.chatproject.model.Message
 import me.saeha.android.chatproject.model.Peoples
-import me.saeha.android.chatproject.ui.message.MessagesViewModel
-import me.saeha.android.chatproject.ui.peoples.PeoplesViewModel
 import me.saeha.android.navermovie_project.network.RxBus
 import me.saeha.android.navermovie_project.network.RxEvents
 import java.lang.reflect.Type
@@ -36,7 +31,6 @@ import java.util.*
 class ChattingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChattingBinding
     private val chattingViewModel: ChattingViewModel by viewModels()
-    private val messageViewModel: MessagesViewModel by viewModels()
 
     private lateinit var chatRoom: ChattingRoom
     private lateinit var people: Peoples
@@ -48,7 +42,7 @@ class ChattingActivity : AppCompatActivity() {
         Firebase.database("https://chatapplication-2b8c6-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
 
-    var whereFrom = 0
+    var whereFrom = 0 //1 : profile에서 넘어왔을 때, 2: 메시지 목록에서 넘어왔을 때
     var partnerName = ""
     var partnerPosition = ""
     var partnerId = ""
@@ -65,8 +59,6 @@ class ChattingActivity : AppCompatActivity() {
         binding = ActivityChattingBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-
 
         userId = getUserId(this).toString()
         userName = getUserName(this).toString()
@@ -91,11 +83,9 @@ class ChattingActivity : AppCompatActivity() {
             roomId = chatRoom.roomId.toString()
             chattingViewModel.getThisChatLog(roomId)
 
-
-//            chattingViewModel.updateUnseenMessage(roomId)
-
         }
 
+        //메시지 데이터가 변경이 감지 되었을 때
         databaseReference.child("chatRooms").child(roomId)
             .addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -103,7 +93,8 @@ class ChattingActivity : AppCompatActivity() {
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    Log.d("아 제제발 살려줘13", snapshot.value.toString())
+                    //Log.d("${javaClass.toString()}메시지인지 키확인", snapshot.key.toString())
+                    //Log.d("${javaClass.toString()}메시지인지 값확인", snapshot.value.toString())
                     if(snapshot.key == "thread"){
                         val getChattingLogJson = snapshot.value.toString()
                         val gson = Gson()
@@ -116,7 +107,7 @@ class ChattingActivity : AppCompatActivity() {
                         if(catchMessage.senderId!=userId){
                             chattingViewModel.chattingLogsList.add(catchMessage)
                         }
-                        Log.d("사이즈 확인", chattingViewModel.chattingLogsList.size.toString() )
+                        //Log.d("${javaClass.toString()}메시지인지 채팅로그사이즈", chattingViewModel.chattingLogsList.size.toString())
                         chattingViewModel.updateChattingLogs()
 
                     }
@@ -194,7 +185,8 @@ class ChattingActivity : AppCompatActivity() {
                     Locale.KOREA
                 )
                 val thisChatDate = dateFormat.format(longToDate)
-                Log.d("날짜 확인", thisChatDate.toString()) //확인: 2022-10-04 오후 09:10:51
+                //Log.d("${javaClass.toString()}날짜 확인", snapshot.key.toString())//확인: 2022-10-04 오후 09:10:51
+
 
                 val messageRow = Message(message, thisChatDate, userId, userName, roomId)
                 chattingViewModel.saveMessage(
@@ -215,8 +207,6 @@ class ChattingActivity : AppCompatActivity() {
         }
     }
 
-
-    //Toolbar 메뉴 클릭 이벤트
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
